@@ -35,6 +35,10 @@ android {
     composeOptions{
         kotlinCompilerExtensionVersion = "1.4.3"
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
