@@ -5,7 +5,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,19 +14,40 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.llama.presentation.component.LLButton
 import com.llama.presentation.component.LLTextField
 import com.llama.presentation.theme.ArchitecturepracticeTheme
+import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel = hiltViewModel(),
+) {
+    val state = viewModel.collectAsState().value
+
+    LoginScreen(
+        id = state.id,
+        password = state.password,
+        onIdChange = viewModel::onIdChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onNavigateToSign = { },
+        onLoginClick = viewModel::onLoginClick
+    )
+}
+
+
+@Composable
+private fun LoginScreen(
     id: String,
     password: String,
     onIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onNavigateToSign: () -> Unit,
+    onLoginClick: () -> Unit,
 ) {
     Surface {
         Column(
@@ -90,6 +110,7 @@ fun LoginScreen(
                         .padding(top = 8.dp)
                         .fillMaxWidth(),
                     value = password,
+                    visualTransformation = PasswordVisualTransformation(),
                     onValueString = onPasswordChange
                 )
 
@@ -99,7 +120,7 @@ fun LoginScreen(
                         .padding(top = 24.dp)
                         .height(48.dp),
                     text = "로그인",
-                    onClick = {}
+                    onClick = onLoginClick
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -128,7 +149,8 @@ private fun LoginScreenPreview() {
             password = "quam",
             onIdChange = {},
             onPasswordChange = {},
-            onNavigateToSign = {}
+            onNavigateToSign = {},
+            onLoginClick = {}
         )
     }
 }

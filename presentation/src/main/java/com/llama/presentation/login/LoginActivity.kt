@@ -1,17 +1,18 @@
 package com.llama.presentation.login
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
+import androidx.appcompat.app.AppCompatActivity
+import com.llama.presentation.theme.ArchitecturepracticeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginActivity : ComponentActivity() {
+@AndroidEntryPoint
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box {
-                Text("ㄴㄹㄴㄹㄴ")
+            ArchitecturepracticeTheme {
+                LoginNavHost()
             }
         }
     }

@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -20,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.llama.presentation.component.LLButton
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    onNavigateToLogin: () -> Unit
+) {
     Surface {
         Box(
             modifier = Modifier
@@ -51,7 +50,7 @@ fun WelcomeScreen() {
                     .align(alignment = Alignment.BottomCenter)
                     .height(48.dp),
                 text = "로그인",
-                onClick = {}
+                onClick = onNavigateToLogin
             )
         }
     }
@@ -60,5 +59,7 @@ fun WelcomeScreen() {
 @Preview
 @Composable
 private fun WelcomeScreenPreview() {
-    WelcomeScreen()
+    WelcomeScreen() {
+
+    }
 }

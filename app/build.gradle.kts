@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt)
 //    alias(libs.plugins.fastcampus.hilt)
 //    alias(libs.plugins.android.application)
 //    alias(libs.plugins.kotlin.android)
@@ -9,7 +10,6 @@ plugins {
 //    alias(libs.plugins.hilt.plugin)
 //    alias(libs.plugins.kapt)
     id("kotlin-kapt")
-//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -93,4 +93,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
+
+    // hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 }
