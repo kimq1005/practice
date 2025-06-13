@@ -5,13 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.llama.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
+import kotlin.math.log
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -19,19 +22,22 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel(), ContainerHost<LoginState, LoginSideEffect> {
 
     override val container: Container<LoginState, LoginSideEffect> = container(
-        initialState = LoginState()
+        initialState = LoginState(),
+        buildSettings = {
+            this.exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                intent {
+                    postSideEffect(LoginSideEffect.Toast(message = throwable.message.orEmpty()))
+                }
+            }
+        }
     )
 
     fun onLoginClick() = intent {
         val id = state.id
         val password = state.password
 
-        viewModelScope.launch {
-            loginUseCase(
-                id = id,
-                password = password
-            )
-        }
+        val token = loginUseCase(id = id, password = password).getOrThrow()
+        postSideEffect(LoginSideEffect.Toast(message = "token = $token"))
     }
 
     fun onIdChange(id: String) = intent {
@@ -55,4 +61,6 @@ data class LoginState(
     val password: String = ""
 )
 
-sealed interface LoginSideEffect
+sealed interface LoginSideEffect {
+    class Toast(val message: String): LoginSideEffect
+}
