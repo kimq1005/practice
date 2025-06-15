@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +29,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
+    onNavigateToSignUpScreen: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
     val context = LocalContext.current
@@ -45,7 +45,7 @@ fun LoginScreen(
         password = state.password,
         onIdChange = viewModel::onIdChange,
         onPasswordChange = viewModel::onPasswordChange,
-        onNavigateToSign = {},
+        onNavigateToSignUpScreen = onNavigateToSignUpScreen,
         onLoginClick = viewModel::onLoginClick
     )
 }
@@ -57,7 +57,7 @@ private fun LoginScreen(
     password: String,
     onIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onNavigateToSign: () -> Unit,
+    onNavigateToSignUpScreen: () -> Unit,
     onLoginClick: () -> Unit,
 ) {
     Surface {
@@ -140,7 +140,7 @@ private fun LoginScreen(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .padding(bottom = 24.dp)
-                        .clickable(onClick = onNavigateToSign)
+                        .clickable(onClick = onNavigateToSignUpScreen)
                 ) {
                     Text(text = "Don't have an account")
                     Text(text = "Sign up", color = MaterialTheme.colorScheme.primary)
@@ -160,7 +160,7 @@ private fun LoginScreenPreview() {
             password = "quam",
             onIdChange = {},
             onPasswordChange = {},
-            onNavigateToSign = {},
+            onNavigateToSignUpScreen = {},
             onLoginClick = {}
         )
     }

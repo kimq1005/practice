@@ -22,7 +22,11 @@ fun LoginNavHost() {
         }
 
         composable(route = LoginRoute.LoginScreen.name) {
-            LoginScreen()
+            LoginScreen(
+                onNavigateToSignUpScreen = {
+                    navController.navigate(LoginRoute.SignUpScreen.name)
+                }
+            )
         }
 
         composable(route = LoginRoute.SignUpScreen.name) {
