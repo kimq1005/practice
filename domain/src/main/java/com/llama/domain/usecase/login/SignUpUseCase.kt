@@ -4,6 +4,6 @@ interface SignUpUseCase {
     suspend operator fun invoke(
         id: String,
         username: String,
-        passWord: String
-    ): Result<Unit>
+        password: String
+    ): Result<Boolean>
 }

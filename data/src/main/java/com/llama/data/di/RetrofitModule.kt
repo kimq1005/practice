@@ -11,10 +11,11 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-val Llama_Host = "http://192.168.0.116:8080"
+val Llama_Host = "http://192.168.0.12:8080"
 
-//192.168.0.116
-//192.168.0.1
+//192.168.0.116 -> 투썸
+//192.168.0.12 -> 컴포즈
+
 
 @Module
 @InstallIn(SingletonComponent::class)

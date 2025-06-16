@@ -1,5 +1,6 @@
 package com.llama.presentation.login
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.llama.presentation.MainActivity
 import com.llama.presentation.component.LLButton
 import com.llama.presentation.component.LLTextField
 import com.llama.presentation.theme.ArchitecturepracticeTheme
@@ -37,6 +39,13 @@ fun LoginScreen(
     viewModel.collectSideEffect { sideEffect ->
         when(sideEffect) {
             is LoginSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            is LoginSideEffect.NavigateToMainActivity -> {
+                val intent = Intent(context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+
+                context.startActivity(intent)
+            }
         }
     }
 
