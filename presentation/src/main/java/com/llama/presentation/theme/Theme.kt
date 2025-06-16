@@ -18,7 +18,7 @@ private val ColorScheme = lightColorScheme(
 )
 
 @Composable
-fun ArchitecturepracticeTheme(
+fun ConnectedTheme(
     content: @Composable () -> Unit
 ) {
     val darkTheme: Boolean = isSystemInDarkTheme()

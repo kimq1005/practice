@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.llama.presentation.component.LLButton
 import com.llama.presentation.component.LLTextField
-import com.llama.presentation.theme.ArchitecturepracticeTheme
+import com.llama.presentation.theme.ConnectedTheme
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -175,7 +175,7 @@ private fun SignUpScreen(
 @Preview
 @Composable
 private fun SignUpScreenPreview() {
-    ArchitecturepracticeTheme {
+    ConnectedTheme {
         SignUpScreen(
             id = "test",
             username = "llama",

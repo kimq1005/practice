@@ -21,10 +21,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.llama.presentation.MainActivity
+import com.llama.main.MainActivity
 import com.llama.presentation.component.LLButton
 import com.llama.presentation.component.LLTextField
-import com.llama.presentation.theme.ArchitecturepracticeTheme
+import com.llama.presentation.theme.ConnectedTheme
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -163,7 +163,7 @@ private fun LoginScreen(
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    ArchitecturepracticeTheme {
+    ConnectedTheme {
         LoginScreen(
             id = "hendrerit",
             password = "quam",

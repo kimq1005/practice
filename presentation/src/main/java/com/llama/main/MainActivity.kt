@@ -1,4 +1,4 @@
-package com.llama.presentation.login
+package com.llama.main
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -7,12 +7,12 @@ import com.llama.presentation.theme.ConnectedTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ConnectedTheme {
-                LoginNavHost()
+                MainNavHost()
             }
         }
     }
