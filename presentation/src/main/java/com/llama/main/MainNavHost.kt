@@ -22,7 +22,6 @@ import com.llama.presentation.R
 @Composable
 fun MainNavHost() {
     val navController = rememberNavController()
-
     Surface {
         Scaffold(
             topBar = {
