@@ -1,6 +1,7 @@
 package com.llama.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.llama.data.retrofit.FileService
 import com.llama.data.retrofit.LLInterceptor
 import com.llama.data.retrofit.UserService
 import dagger.Module
@@ -13,7 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-val Llama_Host = "http://192.168.0.42:8080"
+val Llama_Host = "http://192.168.0.55:8080"
 
 //192.168.0.116 -> 투썸
 //192.168.0.12 -> 컴포즈
@@ -48,5 +49,10 @@ class RetrofitModule {
     @Provides
     fun provideUserService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    fun provideFileService(retrofit: Retrofit): FileService {
+        return retrofit.create(FileService::class.java)
     }
 }

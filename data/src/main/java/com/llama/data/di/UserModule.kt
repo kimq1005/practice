@@ -6,12 +6,16 @@ import com.llama.data.usecase.LoginUseCaseImpl
 import com.llama.data.usecase.SetTokenUseCaseImpl
 import com.llama.data.usecase.SignUpUseCaseImpl
 import com.llama.data.usecase.main.setting.GetMyUserUseCaseImpl
+import com.llama.data.usecase.main.setting.SetMyUserNameUseCaseImpl
+import com.llama.data.usecase.main.setting.SetProfileImageUseCaseImpl
 import com.llama.domain.usecase.login.ClearTokenUseCase
 import com.llama.domain.usecase.login.GetTokenUseCase
 import com.llama.domain.usecase.login.LoginUseCase
 import com.llama.domain.usecase.login.SetTokenUseCase
 import com.llama.domain.usecase.login.SignUpUseCase
 import com.llama.domain.usecase.main.setting.GetMyUserUseCase
+import com.llama.domain.usecase.main.setting.SetMyUserNameUseCase
+import com.llama.domain.usecase.main.setting.SetProfileImageUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -38,4 +42,10 @@ abstract class UserModule {
 
     @Binds
     abstract fun bindGetMyUserUseCase(useCase: GetMyUserUseCaseImpl): GetMyUserUseCase
+
+    @Binds
+    abstract fun bindSetMyUserNameUseCase(useCase: SetMyUserNameUseCaseImpl): SetMyUserNameUseCase
+
+    @Binds
+    abstract fun bindSetProfileImageUseCase(useCase: SetProfileImageUseCaseImpl): SetProfileImageUseCase
 }

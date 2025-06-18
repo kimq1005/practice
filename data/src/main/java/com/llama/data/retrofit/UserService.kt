@@ -5,6 +5,7 @@ import com.llama.data.model.UserDTO
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 
 interface UserService {
@@ -20,4 +21,9 @@ interface UserService {
 
     @GET("users/my-page")
     suspend fun myPage(): CommonResponse<UserDTO>
+
+    @PATCH("users/my-page")
+    suspend fun pathMyPage(
+        @Body requestBody: RequestBody,
+    ): CommonResponse<Long>
 }
