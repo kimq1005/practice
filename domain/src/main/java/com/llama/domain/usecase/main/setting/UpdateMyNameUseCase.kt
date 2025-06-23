@@ -1,8 +1,8 @@
 package com.llama.domain.usecase.main.setting
 
-interface SetMyUserNameUseCase {
+interface SetMyUserUseCase {
     suspend operator fun invoke(
-         username: String,
-         profileImageUrl: String?
+         username: String? = null,
+         profileImageUrl: String? = null
     ): Result<Unit>
 }

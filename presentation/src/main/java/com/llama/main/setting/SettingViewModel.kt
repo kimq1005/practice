@@ -5,7 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import com.llama.domain.usecase.login.ClearTokenUseCase
 import com.llama.domain.usecase.main.setting.GetMyUserUseCase
-import com.llama.domain.usecase.main.setting.SetMyUserNameUseCase
+import com.llama.domain.usecase.main.setting.SetMyUserUseCase
 import com.llama.domain.usecase.main.setting.SetProfileImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class SettingViewModel @Inject constructor(
     private val clearTokenUseCase: ClearTokenUseCase,
     private val getMyUserUseCase: GetMyUserUseCase,
-    private val setMyUserNameUseCase: SetMyUserNameUseCase,
+    private val setMyUserUseCase: SetMyUserUseCase,
     private val setProfileImageUseCase: SetProfileImageUseCase,
 ) : ViewModel(), ContainerHost<SettingState, SettingSideEffect> {
     override val container: Container<SettingState, SettingSideEffect> =
@@ -42,7 +42,7 @@ class SettingViewModel @Inject constructor(
         val user = getMyUserUseCase().getOrThrow()
         reduce {
             state.copy(
-                profileImageUrl = user.profileImage,
+                profileImageUrl = user.profileImageUrl,
                 username = user.username
             )
         }
@@ -54,7 +54,7 @@ class SettingViewModel @Inject constructor(
     }
 
     fun onUsernameChange(username: String) = intent {
-        setMyUserNameUseCase(
+        setMyUserUseCase(
             username = username,
             profileImageUrl = state.profileImageUrl
         ).getOrThrow()

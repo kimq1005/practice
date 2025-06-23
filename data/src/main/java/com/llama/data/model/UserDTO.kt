@@ -17,6 +17,6 @@ fun UserDTO.toDomainModel(): User {
         id = this.id,
         loginId = this.loginId,
         username = this.userName,
-        profileImage = this.profileFilePath
+        profileImageUrl = this.profileFilePath
     )
 }

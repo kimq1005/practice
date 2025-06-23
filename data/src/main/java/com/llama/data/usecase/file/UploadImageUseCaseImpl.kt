@@ -1,5 +1,6 @@
 package com.llama.data.usecase.file
 
+import com.llama.data.di.Llama_Host
 import com.llama.data.retrofit.FileService
 import com.llama.data.retrofit.UriRequestBody
 import com.llama.domain.model.Image
@@ -32,7 +33,12 @@ class UploadImageUseCaseImpl @Inject constructor(
             requestBody
         )
 
-        fileService.uploadImage(
+//        val status = fileService.uploadImage(
+//            fileName = fileNamePart,
+//            file = filePart
+//        )
+
+        Llama_Host + fileService.uploadImage(
             fileName = fileNamePart,
             file = filePart
         ).data.filePath

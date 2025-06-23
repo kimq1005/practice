@@ -12,7 +12,7 @@ data class UpdateMyInfoParam(
     val extraUserInfo: String,
     val profileFilePath: String,
 ) {
-    fun toRequestBody() : RequestBody {
+    fun toRequestBody(): RequestBody {
         return Json.encodeToString(this).toRequestBody()
     }
 }

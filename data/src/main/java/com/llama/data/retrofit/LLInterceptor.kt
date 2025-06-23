@@ -1,5 +1,6 @@
 package com.llama.data.retrofit
 
+import android.util.Log
 import com.llama.data.UserDataStore
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

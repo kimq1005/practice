@@ -1,15 +1,16 @@
 package com.llama.presentation.component
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,8 +29,13 @@ fun LLProfileImage(
     profileImageUrl: String? = null,
     borderWidth: Dp = 4.dp
 ) {
+
+    LaunchedEffect(profileImageUrl) {
+        Log.d("LLProfileImage", "profileImageUrl: $profileImageUrl")
+    }
+
     Box {
-        val rainbowColorBrush = remember {
+        val rainbowColorsBrush = remember {
             Brush.sweepGradient(
                 listOf(
                     Color(0xFF9575CD),
@@ -54,8 +60,8 @@ fun LLProfileImage(
         Image(
             modifier = modifier
                 .border(
-                    border = BorderStroke(borderWidth, rainbowColorBrush),
-                    shape = CircleShape
+                    BorderStroke(borderWidth, rainbowColorsBrush),
+                    CircleShape
                 )
                 .padding(borderWidth)
                 .clip(CircleShape),

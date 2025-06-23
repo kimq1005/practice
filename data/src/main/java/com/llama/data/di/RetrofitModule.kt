@@ -14,10 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-val Llama_Host = "http://192.168.0.55:8080"
-
-//192.168.0.116 -> 투썸
-//192.168.0.12 -> 컴포즈
+val Llama_Host = "http://192.168.0.59:8080/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -40,7 +37,7 @@ class RetrofitModule {
         }.asConverterFactory("application/json; charset=UTF8".toMediaType())
 
         return Retrofit.Builder()
-            .baseUrl("${Llama_Host}/api/")
+            .baseUrl("${Llama_Host}api/")
             .addConverterFactory(converterFactory)
             .client(client)
             .build()
