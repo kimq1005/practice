@@ -16,12 +16,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.llama.main.board.BoardScreen
 import com.llama.main.setting.SettingScreen
+import com.llama.main.test.TestSuccessScreen
 import com.llama.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavHost() {
     val navController = rememberNavController()
+
     Surface {
         Scaffold(
             topBar = {
@@ -44,6 +46,10 @@ fun MainNavHost() {
 
                     composable(route = MainRoute.SETTING.route) {
                         SettingScreen()
+                    }
+
+                    composable(route = MainRoute.TESTING.route) {
+                        TestSuccessScreen()
                     }
                 }
             },

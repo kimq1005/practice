@@ -3,6 +3,7 @@ package com.llama.main
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
@@ -16,4 +17,5 @@ enum class MainRoute(
     BOARD(route = "BoardScreen", contentDescription = "글목록", icon = Icons.Filled.Home),
     WRITING(route = "WritingScreen", contentDescription = "글쓰기", icon = Icons.Filled.AddCircle),
     SETTING(route = "SettingScreen", contentDescription = "내 정보", icon = Icons.Filled.AccountCircle),
+    TESTING(route ="TestingScreen", contentDescription = "테스트", icon = Icons.Filled.Build)
 }
