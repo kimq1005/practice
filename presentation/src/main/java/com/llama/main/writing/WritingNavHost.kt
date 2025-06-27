@@ -1,16 +1,18 @@
 package com.llama.main.writing
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun WritingNavHost(
-    modifier: Modifier = Modifier
+    onFinish: () -> Unit,
 ) {
     val navController = rememberNavController()
+    val sharedViewModel: WritingViewModel = viewModel()
+
     NavHost(
         navController = navController,
         startDestination = WritingRoute.IMAGE_SELECTED_SCREEN.route,
@@ -18,11 +20,14 @@ fun WritingNavHost(
         composable(
             route = WritingRoute.IMAGE_SELECTED_SCREEN.route
         ) {
-
+            ImageSelectSuccessScreen(
+                viewModel = sharedViewModel,
+                onBackClick = onFinish
+            )
         }
 
         composable(
-            route = WritingRoute.IMAGE_SELECTED_SCREEN.route
+            route = WritingRoute.WRITING_SCREEN.route
         ) {
 
         }
