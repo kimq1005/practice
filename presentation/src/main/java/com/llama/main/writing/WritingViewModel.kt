@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
@@ -36,15 +37,42 @@ class WritingViewModel @Inject constructor(
 
         reduce {
             state.copy(
+                selectedImage = images.firstOrNull()?.let { listOf(it) } ?: emptyList(),
                 images = images
             )
+        }
+    }
+
+    fun onItemClick(image: Image) = intent {
+        reduce {
+            if (state.selectedImage.contains(image)) {
+                state.copy(
+                    selectedImage = state.selectedImage - image
+                )
+            } else {
+                state.copy(
+                    selectedImage = state.selectedImage + image
+                )
+            }
+        }
+    }
+
+    fun onPostClick() = intent {
+
+    }
+
+    fun onTextChange(text: String) = blockingIntent {
+        reduce {
+            state.copy(text = text)
         }
     }
 }
 
 @Immutable
 data class WritingState(
+    val selectedImage: List<Image> = emptyList(),
     val images: List<Image> = emptyList(),
+    val text: String = ""
 )
 
 sealed interface WritingSideEffect {

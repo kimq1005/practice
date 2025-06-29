@@ -22,6 +22,7 @@ fun WritingNavHost(
         ) {
             ImageSelectSuccessScreen(
                 viewModel = sharedViewModel,
+                onNextClick = { navController.navigate(WritingRoute.WRITING_SCREEN.route) },
                 onBackClick = onFinish
             )
         }
@@ -29,7 +30,11 @@ fun WritingNavHost(
         composable(
             route = WritingRoute.WRITING_SCREEN.route
         ) {
-
+            WritingSuccessScreen(
+                viewModel = sharedViewModel,
+                onBackClick = { navController.navigateUp() },
+                onPostClick = {}
+            )
         }
     }
 }
