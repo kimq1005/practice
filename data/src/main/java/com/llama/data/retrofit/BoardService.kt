@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface BoardService {
     @POST("boards")
-    fun postBoard(
+    suspend fun postBoard(
         @Body requestBody: RequestBody,
     ): CommonResponse<Long>
 }

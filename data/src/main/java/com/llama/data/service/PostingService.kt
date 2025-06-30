@@ -79,7 +79,7 @@ class PostingService(): LifecycleService() {
             startForeground(
                 FOREGROUND_NOTIFICATION_ID,
                 notification,
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_SHORT_SERVICE
             )
         } else {
             startForeground(
