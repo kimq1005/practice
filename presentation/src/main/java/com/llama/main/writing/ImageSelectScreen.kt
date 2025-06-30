@@ -35,7 +35,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import coil.compose.rememberAsyncImagePainter
 import com.llama.domain.model.Image
 import com.llama.presentation.theme.ConnectedTheme
@@ -48,9 +47,7 @@ fun ImageSelectSuccessScreen(
     onBackClick: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
-    LaunchedEffect(Unit) {
-        Log.d("TAG", "ImageSelectSuccessScreen: HI")
-    }
+
     ImageSelectScreen(
         selectedImages = state.selectedImage,
         images = state.images,

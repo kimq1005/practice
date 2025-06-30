@@ -1,6 +1,7 @@
 package com.llama.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.llama.data.retrofit.BoardService
 import com.llama.data.retrofit.FileService
 import com.llama.data.retrofit.LLInterceptor
 import com.llama.data.retrofit.UserService
@@ -14,7 +15,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-val Llama_Host = "http://192.168.0.76:8080/"
+val Llama_Host = "http://192.168.0.82:8080/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -51,5 +52,10 @@ class RetrofitModule {
     @Provides
     fun provideFileService(retrofit: Retrofit): FileService {
         return retrofit.create(FileService::class.java)
+    }
+
+    @Provides
+    fun provideBoardService(retrofit: Retrofit): BoardService {
+        return retrofit.create(BoardService::class.java)
     }
 }
