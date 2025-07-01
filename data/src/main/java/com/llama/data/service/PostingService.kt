@@ -19,6 +19,7 @@ import com.llama.domain.usecase.file.UploadImageUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -105,10 +106,15 @@ class PostingService(): LifecycleService() {
             content = contentParam.toJson()
         ).toRequestBody()
 
-        try {
+        kotlin.runCatching {
             boardService.postBoard(requestBody)
-        } catch (e: Exception) {
-            Log.e("TAG", "postBoard: ${e.message}")
+        }.onFailure { e ->
+            when (e) {
+                is HttpException -> {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    Log.d("TAG", "postBoard: $errorBody")
+                }
+            }
         }
         stopForeground(STOP_FOREGROUND_DETACH)
     }
