@@ -1,4 +1,4 @@
-package com.llama.main.writing
+package com.llama.presentation.main.writing
 
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel

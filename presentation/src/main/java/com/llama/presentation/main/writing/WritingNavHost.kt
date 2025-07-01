@@ -1,4 +1,4 @@
-package com.llama.main.writing
+package com.llama.presentation.main.writing
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable

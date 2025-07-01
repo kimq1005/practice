@@ -10,10 +10,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.llama.main.MainActivity" />
+        <activity android:name=".main.MainActivity" />
 
         <activity android:name=".login.LoginActivity" />
 
-        <activity android:name="com.llama.main.writing.WritingActivity" />
+        <activity android:name=".main.writing.WritingActivity" />
     </application>
 </manifest>

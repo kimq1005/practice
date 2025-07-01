@@ -1,4 +1,4 @@
-package com.llama.main
+package com.llama.presentation.main
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.Manifest.permission.READ_MEDIA_IMAGES
@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.llama.main.writing.WritingActivity
+import com.llama.presentation.main.writing.WritingActivity
 import com.llama.presentation.theme.ConnectedTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package com.llama.main.writing
+package com.llama.presentation.main.writing
 
 import android.util.Log
 import androidx.compose.foundation.Image

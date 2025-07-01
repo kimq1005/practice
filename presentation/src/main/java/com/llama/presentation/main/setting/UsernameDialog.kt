@@ -1,4 +1,4 @@
-package com.llama.main.setting
+package com.llama.presentation.main.setting
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

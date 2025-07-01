@@ -1,4 +1,4 @@
-package com.llama.main.writing
+package com.llama.presentation.main.writing
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column

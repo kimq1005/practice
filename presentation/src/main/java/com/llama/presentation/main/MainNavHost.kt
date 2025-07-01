@@ -1,4 +1,4 @@
-package com.llama.main
+package com.llama.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -14,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.llama.main.board.BoardScreen
-import com.llama.main.setting.SettingScreen
-import com.llama.main.test.TestSuccessScreen
+import com.llama.presentation.main.board.BoardSuccessScreen
+import com.llama.presentation.main.setting.SettingScreen
+import com.llama.presentation.main.test.TestSuccessScreen
 import com.llama.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,7 @@ fun MainNavHost() {
                     startDestination = MainRoute.BOARD.route
                 ) {
                     composable(route = MainRoute.BOARD.route) {
-                        BoardScreen()
+                        BoardSuccessScreen()
                     }
 
                     composable(route = MainRoute.SETTING.route) {

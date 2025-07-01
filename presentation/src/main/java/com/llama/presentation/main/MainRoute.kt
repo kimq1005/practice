@@ -1,4 +1,4 @@
-package com.llama.main
+package com.llama.presentation.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

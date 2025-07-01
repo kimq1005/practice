@@ -1,4 +1,4 @@
-package com.llama.main.setting
+package com.llama.presentation.main.setting
 
 import android.content.Intent
 import android.widget.Toast

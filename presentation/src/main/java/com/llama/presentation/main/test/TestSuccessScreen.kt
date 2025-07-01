@@ -1,4 +1,4 @@
-package com.llama.main.test
+package com.llama.presentation.main.test
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
