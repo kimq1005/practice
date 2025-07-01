@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.LifecycleService
@@ -104,7 +105,11 @@ class PostingService(): LifecycleService() {
             content = contentParam.toJson()
         ).toRequestBody()
 
-        boardService.postBoard(requestBody)
+        try {
+            boardService.postBoard(requestBody)
+        } catch (e: Exception) {
+            Log.e("TAG", "postBoard: ${e.message}")
+        }
         stopForeground(STOP_FOREGROUND_DETACH)
     }
 }

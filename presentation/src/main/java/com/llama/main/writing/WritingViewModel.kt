@@ -61,7 +61,7 @@ class WritingViewModel @Inject constructor(
 
     fun onPostClick() = intent {
         postBoardUseCase(
-            title = "",
+            title = "테스트 제목입니다.",
             content = state.text,
             images = state.selectedImage
         )

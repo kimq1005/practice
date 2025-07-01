@@ -2,6 +2,7 @@ package com.llama.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
@@ -40,6 +41,9 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             val isLoggedIn = !getTokenUseCase().isNullOrEmpty()
+            getTokenUseCase()?.let {
+                Log.d("TAG", "onCreate: myToken = ${getTokenUseCase()}")
+            }
 
             if (isLoggedIn) {
                 startActivity(
