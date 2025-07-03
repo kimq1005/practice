@@ -3,29 +3,37 @@ package com.llama.presentation.main.board
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.llama.presentation.model.model.board.BoardCardModel
-import com.llama.presentation.theme.ConnectedTheme
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun BoardSuccessScreen(
     modifier: Modifier = Modifier,
-    viewModel: BoardViewModel = hiltViewModel()
+    viewModel: BoardViewModel = hiltViewModel(),
 ) {
     val state = viewModel.collectAsState().value
-    val items = state.boardCardModelFlow.collectAsLazyPagingItems()
+    var modelForDialog:BoardCardModel? by remember { mutableStateOf(null) }
 
     BoardScreen(
-        boardCardModels = items,
-        onOptionClick = {},
+        boardCardModels = state.boardCardModelFlow.collectAsLazyPagingItems(),
+        onOptionClick = { modelForDialog = it},
         onReplyClick = {}
+    )
+
+    BoardOptionDialog(
+        model = modelForDialog,
+        onDismissRequest = { modelForDialog = null },
+        onBoardDelete = viewModel::onBoardDelete
     )
 }
 

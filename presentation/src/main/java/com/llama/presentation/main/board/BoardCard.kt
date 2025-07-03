@@ -33,6 +33,7 @@ fun BoardCard(
     onReplyClick: () -> Unit,
 ) {
     var commentDialogVisible by remember { mutableStateOf(false) }
+
     Surface {
         Column(
             modifier =
@@ -48,6 +49,7 @@ fun BoardCard(
                 modifier = Modifier.fillMaxWidth(),
                 profileImageUrl = profileImageUrl,
                 username = username,
+                onOptionClick = onOptionClick
             )
 
             if (images.isNotEmpty()) {
@@ -82,6 +84,7 @@ fun BoardCard(
                     )
                 }
             }
+
             // 댓글버튼
             TextButton(
                 modifier = Modifier

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.llama.domain.usecase.main.board.DeleteBoardUseCase
 import com.llama.domain.usecase.main.board.GetBoardUseCase
 import com.llama.presentation.model.model.board.BoardCardModel
 import com.llama.presentation.model.model.board.toUiModel
@@ -22,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BoardViewModel @Inject constructor(
-    private val getBoardUseCase: GetBoardUseCase
+    private val getBoardUseCase: GetBoardUseCase,
+    private val deleteBoardUseCase: DeleteBoardUseCase,
 ) : ViewModel(), ContainerHost<BoardState, BoardSideEffect> {
     override val container: Container<BoardState, BoardSideEffect> = container(
         initialState = BoardState(),
@@ -53,6 +55,13 @@ class BoardViewModel @Inject constructor(
                 boardCardModelFlow = boardCardModelFlow
             )
         }
+    }
+
+    fun onBoardDelete(
+        model: BoardCardModel,
+    ) = intent {
+        deleteBoardUseCase(model.boardId).getOrThrow()
+        load()
     }
 }
 
