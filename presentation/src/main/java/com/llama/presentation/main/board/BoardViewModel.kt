@@ -1,6 +1,6 @@
 package com.llama.presentation.main.board
 
-import androidx.compose.material3.TopAppBar
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
@@ -39,20 +39,20 @@ class BoardViewModel @Inject constructor(
 
     private fun load() = intent {
         val boardFlow = getBoardUseCase().getOrThrow()
-
+        Log.d("TAG", "load: ${boardFlow}")
         val boardCardModelFlow = boardFlow.map { pagingData ->
-            pagingData.map { board -> board.toUiModel() }
+            pagingData.map { board ->
+                Log.d("TAG", "load: ${board.toUiModel().text }")
+                board.toUiModel()
+            }
         }
+
 
         reduce {
             state.copy(
                 boardCardModelFlow = boardCardModelFlow
             )
         }
-
-        state.copy(
-            boardCardModelFlow = boardCardModelFlow
-        )
     }
 }
 

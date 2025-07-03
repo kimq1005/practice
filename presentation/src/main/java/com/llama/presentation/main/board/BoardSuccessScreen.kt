@@ -44,11 +44,14 @@ private fun BoardScreen(
                 key = { index -> boardCardModels[index]?.boardId ?: index }
             ) { index ->
                 val boardCardModel = boardCardModels[index]
-                boardCardModel?.run { model ->
+                boardCardModel?.run {
                     BoardCard(
-                        model = model,
-                        onOptionClick = { onOptionClick(model) },
-                        onReplyClick = { onReplyClick(model) }
+                        profileImageUrl = null,
+                        username = boardCardModel.username,
+                        images = boardCardModel.images,
+                        text = boardCardModel.text,
+                        onOptionClick = { onOptionClick(this) },
+                        onReplyClick = { onReplyClick(this) }
                     )
                 }
             }
@@ -59,7 +62,5 @@ private fun BoardScreen(
 @Preview
 @Composable
 private fun BoardScreenPreview() {
-    ConnectedTheme {
-        BoardScreen()
-    }
+
 }

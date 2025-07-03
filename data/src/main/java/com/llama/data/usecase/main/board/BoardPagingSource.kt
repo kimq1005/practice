@@ -5,8 +5,9 @@ import androidx.paging.PagingState
 import com.llama.data.model.toDomain
 import com.llama.data.retrofit.BoardService
 import com.llama.domain.model.Board
+import javax.inject.Inject
 
-class BoardPagingSource(
+class BoardPagingSource @Inject constructor(
     private val boardService: BoardService
 ): PagingSource<Int, Board>() {
     override fun getRefreshKey(state: PagingState<Int, Board>): Int? {
