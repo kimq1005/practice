@@ -25,7 +25,6 @@ class GetImageListUseCaseImpl @Inject constructor(
         )
 
         val collectionUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Query all the device storage volumes instead of the primary only
             Images.Media.getContentUri(VOLUME_EXTERNAL)
         } else {
             Images.Media.EXTERNAL_CONTENT_URI
