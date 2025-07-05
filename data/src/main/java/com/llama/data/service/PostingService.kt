@@ -74,7 +74,6 @@ class PostingService(): LifecycleService() {
         notificationManager?.createNotificationChannel(channel)
     }
 
-
     private fun startForeground() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID).build()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
