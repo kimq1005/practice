@@ -23,7 +23,7 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PostingService(): LifecycleService() {
+class PostingService : LifecycleService() {
 
     @Inject
     lateinit var uploadImageUseCase: UploadImageUseCase
