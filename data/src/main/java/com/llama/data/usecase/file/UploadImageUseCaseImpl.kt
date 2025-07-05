@@ -33,11 +33,6 @@ class UploadImageUseCaseImpl @Inject constructor(
             requestBody
         )
 
-//        val status = fileService.uploadImage(
-//            fileName = fileNamePart,
-//            file = filePart
-//        )
-
         Llama_Host + fileService.uploadImage(
             fileName = fileNamePart,
             file = filePart
