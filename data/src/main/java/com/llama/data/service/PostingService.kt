@@ -15,6 +15,7 @@ import com.llama.data.model.BoardParam
 import com.llama.data.model.BoardParcel
 import com.llama.data.model.ContentParam
 import com.llama.data.retrofit.BoardService
+import com.llama.domain.model.ACTION_POSTED
 import com.llama.domain.usecase.file.UploadImageUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -114,6 +115,12 @@ class PostingService : LifecycleService() {
                     Log.d("TAG", "postBoard: $errorBody")
                 }
             }
+        }.onSuccess {
+            sendBroadcast(
+                Intent(ACTION_POSTED).apply {
+                    setPackage(packageName)
+                }
+            )
         }
         stopForeground(STOP_FOREGROUND_DETACH)
     }

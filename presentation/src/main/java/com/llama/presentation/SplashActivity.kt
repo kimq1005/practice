@@ -41,6 +41,7 @@ class SplashActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             val isLoggedIn = !getTokenUseCase().isNullOrEmpty()
+
             getTokenUseCase()?.let {
                 Log.d("TAG", "onCreate: myToken = ${getTokenUseCase()}")
             }

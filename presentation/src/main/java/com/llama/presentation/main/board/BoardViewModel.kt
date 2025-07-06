@@ -1,9 +1,13 @@
 package com.llama.presentation.main.board
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.llama.domain.model.ACTION_POSTED
 import com.llama.domain.usecase.main.board.DeleteBoardUseCase
 import com.llama.domain.usecase.main.board.GetBoardUseCase
 import com.llama.presentation.model.model.board.BoardCardModel
@@ -35,6 +39,14 @@ class BoardViewModel @Inject constructor(
         }
     )
 
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+           if (intent?.action == ACTION_POSTED) {
+
+           }
+        }
+    }
+
     init {
         load()
     }
@@ -61,12 +73,18 @@ class BoardViewModel @Inject constructor(
         model: BoardCardModel,
     ) = intent {
         deleteBoardUseCase(model.boardId).getOrThrow()
-        load()
+
+        reduce {
+            state.copy(
+                deletedBoardIds = state.deletedBoardIds + model.boardId
+            )
+        }
     }
 }
 
 data class BoardState(
-    val boardCardModelFlow: Flow<PagingData<BoardCardModel>> = emptyFlow()
+    val boardCardModelFlow: Flow<PagingData<BoardCardModel>> = emptyFlow(),
+    val deletedBoardIds: Set<Long> = emptySet()
 )
 
 
