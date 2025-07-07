@@ -8,8 +8,8 @@ import com.llama.domain.model.Board
 import javax.inject.Inject
 
 class BoardPagingSource @Inject constructor(
-    private val boardService: BoardService
-): PagingSource<Int, Board>() {
+    private val boardService: BoardService,
+) : PagingSource<Int, Board>() {
     override fun getRefreshKey(state: PagingState<Int, Board>): Int? {
         //혹시라도 화면을 무효화하고 리프래쉬 하는 경우 어디부터 데이터를 가져올 건지 ㅇㅇ
         return state.anchorPosition?.let { anchorPosition ->
