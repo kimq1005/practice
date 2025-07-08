@@ -18,10 +18,13 @@ import com.llama.presentation.main.board.BoardSuccessScreen
 import com.llama.presentation.main.setting.SettingScreen
 import com.llama.presentation.main.test.TestSuccessScreen
 import com.llama.presentation.R
+import com.llama.presentation.main.board.BoardViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainNavHost() {
+fun MainNavHost(
+    boardViewModel: BoardViewModel
+) {
     val navController = rememberNavController()
 
     Surface {
@@ -41,7 +44,9 @@ fun MainNavHost() {
                     startDestination = MainRoute.BOARD.route
                 ) {
                     composable(route = MainRoute.BOARD.route) {
-                        BoardSuccessScreen()
+                        BoardSuccessScreen(
+                            viewModel = boardViewModel
+                        )
                     }
 
                     composable(route = MainRoute.SETTING.route) {

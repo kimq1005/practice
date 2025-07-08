@@ -39,19 +39,11 @@ class BoardViewModel @Inject constructor(
         }
     )
 
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-           if (intent?.action == ACTION_POSTED) {
-
-           }
-        }
-    }
-
     init {
         load()
     }
 
-    private fun load() = intent {
+    fun load() = intent {
         val boardFlow = getBoardUseCase().getOrThrow()
         Log.d("TAG", "load: ${boardFlow}")
         val boardCardModelFlow = boardFlow.map { pagingData ->

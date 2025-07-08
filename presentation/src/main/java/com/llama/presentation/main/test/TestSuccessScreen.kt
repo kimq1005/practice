@@ -20,7 +20,7 @@ import com.llama.presentation.theme.ConnectedTheme
 @Composable
 fun TestSuccessScreen(
     modifier: Modifier = Modifier,
-    viewModel: TestViewModel = hiltViewModel()
+    viewModel: TestViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.collectAsState().value
 
@@ -39,7 +39,7 @@ fun TestSuccessScreen(
 fun TestScreen(
     sum: Int,
     onIncrement: () -> Unit,
-    onDecrement: () -> Unit
+    onDecrement: () -> Unit,
 ) {
     Box(
         modifier = Modifier

@@ -21,8 +21,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 fun BoardSuccessScreen(
-    modifier: Modifier = Modifier,
-    viewModel: BoardViewModel = hiltViewModel(),
+    viewModel: BoardViewModel,
 ) {
     val context = LocalContext.current
     val state = viewModel.collectAsState().value
@@ -38,7 +37,7 @@ fun BoardSuccessScreen(
         boardCardModels = state.boardCardModelFlow.collectAsLazyPagingItems(),
         deletedBoardIds = state.deletedBoardIds,
         onOptionClick = { modelForDialog = it },
-        onReplyClick = {}
+        onReplyClick = { }
     )
 
     BoardOptionDialog(
