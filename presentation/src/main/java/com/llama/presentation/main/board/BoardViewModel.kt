@@ -1,13 +1,9 @@
 package com.llama.presentation.main.board
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.llama.domain.model.ACTION_POSTED
 import com.llama.domain.usecase.main.board.DeleteBoardUseCase
 import com.llama.domain.usecase.main.board.GetBoardUseCase
 import com.llama.presentation.model.model.board.BoardCardModel
@@ -53,7 +49,6 @@ class BoardViewModel @Inject constructor(
             }
         }
 
-
         reduce {
             state.copy(
                 boardCardModelFlow = boardCardModelFlow
@@ -78,7 +73,6 @@ data class BoardState(
     val boardCardModelFlow: Flow<PagingData<BoardCardModel>> = emptyFlow(),
     val deletedBoardIds: Set<Long> = emptySet()
 )
-
 
 sealed interface BoardSideEffect {
     class Toast(val message: String) : BoardSideEffect
