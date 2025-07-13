@@ -13,7 +13,6 @@ private val testId = "llama"
 private val testPassword = "1234"
 private val testUsername = "kim"
 
-
 class SignUpViewModelTest {
     lateinit var signUpUseCase: FakeSignUpUseCase
     lateinit var viewModel: SignUpViewModel
