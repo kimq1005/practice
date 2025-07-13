@@ -5,7 +5,6 @@ import com.llama.data.model.SignUpParam
 import com.llama.data.retrofit.UserService
 import com.llama.domain.usecase.login.SignUpUseCase
 import javax.inject.Inject
-import kotlin.math.log
 
 class SignUpUseCaseImpl @Inject constructor(
     private val userService: UserService,

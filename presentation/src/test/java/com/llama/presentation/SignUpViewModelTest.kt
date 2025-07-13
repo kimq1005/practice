@@ -3,10 +3,7 @@ package com.llama.presentation
 import com.llama.domain.usecase.login.SignUpUseCase
 import com.llama.presentation.login.SignUpSideEffect
 import com.llama.presentation.login.SignUpViewModel
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -45,7 +42,7 @@ class SignUpViewModelTest {
         val vm = SignUpViewModel(signUpUseCase)
         vm.onIdChange(testId)
         vm.onPasswordChange(testPassword)
-//        vm.onRepeatPasswordChange(testPassword)
+
         vm.onSignUpClick()
         val sideEffect = vm.container.sideEffectFlow.first()
         Assert.assertEquals((sideEffect as? SignUpSideEffect.Toast)?.message, "패스워드를 다시 확인해주세요.")
@@ -65,9 +62,10 @@ class SignUpViewModelTest {
 
     @Test
     fun 회원가입_버튼_체킹_테스트() = runTest {
-        viewModel.onIdChange("testId")
-        viewModel.onPasswordChange("testPassword")
-        viewModel.onUsernameChange("testUsername")
+        viewModel.onIdChange(testId)
+        viewModel.onPasswordChange(testPassword)
+        viewModel.onRepeatPasswordChange(testPassword)
+        viewModel.onUsernameChange(testUsername)
 
         val state = viewModel.container.stateFlow.first { it.isBtnValidationCheck }
         Assert.assertTrue(state.isBtnValidationCheck)

@@ -28,9 +28,7 @@ class SignUpViewModel @Inject constructor(
     )
 
     fun onIdChange(id: String) = blockingIntent {
-        reduce { state.copy(
-            id = id,
-        ) }
+        reduce { state.copy(id = id) }
         btnValidationCheck()
     }
 
@@ -54,7 +52,8 @@ class SignUpViewModel @Inject constructor(
             state.copy(
                 isBtnValidationCheck = state.id.isNotEmpty() &&
                         state.username.isNotEmpty() &&
-                        state.password.isNotEmpty()
+                        state.password.isNotEmpty() &&
+                        state.repeatPassword.isNotEmpty()
             )
         }
     }
@@ -83,9 +82,8 @@ data class SignUpState(
     val username: String = "",
     val password: String = "",
     val repeatPassword: String = "",
-    val isBtnValidationCheck: Boolean = false
+    val isBtnValidationCheck: Boolean = false,
 )
-
 
 sealed interface SignUpSideEffect {
     class Toast(val message: String) : SignUpSideEffect
