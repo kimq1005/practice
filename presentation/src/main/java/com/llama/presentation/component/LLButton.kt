@@ -8,12 +8,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun LLButton(
     modifier: Modifier = Modifier,
     text: String,
+    isBtnCheck: Boolean = true,
     onClick:() -> Unit
 ) {
     Button(
@@ -21,10 +23,12 @@ fun LLButton(
             .height(48.dp),
         shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
+            containerColor = if (isBtnCheck) MaterialTheme.colorScheme.primary else Color.Gray,
+            contentColor = if (isBtnCheck) MaterialTheme.colorScheme.onPrimary else Color.Gray
         ),
-        onClick = onClick
+        onClick = {
+            if (isBtnCheck) onClick()
+        }
     ) {
         Text(
             text = text,

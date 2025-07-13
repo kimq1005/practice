@@ -43,6 +43,7 @@ fun SignUpScreen(
         username = state.username,
         password1 = state.password,
         password2 = state.repeatPassword,
+        isBtnValidationCheck = state.isBtnValidationCheck,
         onIdChange = viewModel::onIdChange,
         onUsernameChange = viewModel::onUsernameChange,
         onPassword1Change = viewModel::onPasswordChange,
@@ -51,7 +52,6 @@ fun SignUpScreen(
     )
 }
 
-
 @Composable
 private fun SignUpScreen(
     modifier: Modifier = Modifier,
@@ -59,6 +59,7 @@ private fun SignUpScreen(
     username: String,
     password1: String,
     password2: String,
+    isBtnValidationCheck: Boolean,
     onIdChange:(String) -> Unit,
     onUsernameChange:(String) -> Unit,
     onPassword1Change:(String) -> Unit,
@@ -165,6 +166,7 @@ private fun SignUpScreen(
                         .padding(top = 24.dp)
                         .fillMaxWidth(),
                     text = "Sign Up",
+                    isBtnCheck = isBtnValidationCheck,
                     onClick = onSignUpClick
                 )
             }
@@ -181,6 +183,7 @@ private fun SignUpScreenPreview() {
             username = "llama",
             password1 = "1234",
             password2 = "2222",
+            isBtnValidationCheck = false,
             onIdChange = {},
             onUsernameChange = {},
             onPassword1Change = {},

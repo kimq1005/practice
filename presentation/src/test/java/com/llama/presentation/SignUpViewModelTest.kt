@@ -3,7 +3,10 @@ package com.llama.presentation
 import com.llama.domain.usecase.login.SignUpUseCase
 import com.llama.presentation.login.SignUpSideEffect
 import com.llama.presentation.login.SignUpViewModel
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -58,6 +61,16 @@ class SignUpViewModelTest {
         vm.onSignUpClick()
         val sideEffect = vm.container.sideEffectFlow.first()
         Assert.assertTrue(sideEffect is SignUpSideEffect.NavigateToLoginScreen)
+    }
+
+    @Test
+    fun 회원가입_버튼_체킹_테스트() = runTest {
+        viewModel.onIdChange("testId")
+        viewModel.onPasswordChange("testPassword")
+        viewModel.onUsernameChange("testUsername")
+
+        val state = viewModel.container.stateFlow.first { it.isBtnValidationCheck }
+        Assert.assertTrue(state.isBtnValidationCheck)
     }
 
     class FakeSignUpUseCase : SignUpUseCase {

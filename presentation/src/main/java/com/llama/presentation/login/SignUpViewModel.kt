@@ -28,21 +28,36 @@ class SignUpViewModel @Inject constructor(
     )
 
     fun onIdChange(id: String) = blockingIntent {
-        reduce { state.copy(id = id) }
+        reduce { state.copy(
+            id = id,
+        ) }
+        btnValidationCheck()
     }
 
     fun onUsernameChange(username: String) = blockingIntent {
         reduce { state.copy(username = username) }
+        btnValidationCheck()
     }
 
     fun onPasswordChange(password: String) = blockingIntent {
         reduce { state.copy(password = password) }
+        btnValidationCheck()
     }
 
     fun onRepeatPasswordChange(repeatPassword: String) = blockingIntent {
         reduce { state.copy(repeatPassword = repeatPassword) }
+        btnValidationCheck()
     }
 
+    private fun btnValidationCheck() = intent {
+        reduce {
+            state.copy(
+                isBtnValidationCheck = state.id.isNotEmpty() &&
+                        state.username.isNotEmpty() &&
+                        state.password.isNotEmpty()
+            )
+        }
+    }
 
     fun onSignUpClick() = intent {
         if (state.password != state.repeatPassword) {
@@ -68,6 +83,7 @@ data class SignUpState(
     val username: String = "",
     val password: String = "",
     val repeatPassword: String = "",
+    val isBtnValidationCheck: Boolean = false
 )
 
 
