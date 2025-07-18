@@ -43,6 +43,7 @@ class LoginViewModel @Inject constructor(
             id = id,
             password = password
         ).getOrThrow()
+
         setTokenUseCase(token)
 
         postSideEffect(LoginSideEffect.Toast(message = "로그인 성공"))
