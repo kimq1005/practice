@@ -1,5 +1,6 @@
 package com.llama.presentation.login
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,15 @@ fun SignUpScreen(
         when(sideEffect) {
             is SignUpSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
             is SignUpSideEffect.NavigateToLoginScreen -> onNavigateToLoginScreen()
+        }
+    }
+
+    viewModel.collectSideEffect { sideEffect ->
+        when(sideEffect) {
+            is SignUpSideEffect.Toast -> Toast.makeText(context, sideEffect.message, Toast.LENGTH_SHORT).show()
+            is SignUpSideEffect.NavigateToLoginScreen -> {
+                Intent(context, LoginActivity::class.java)
+            }
         }
     }
 

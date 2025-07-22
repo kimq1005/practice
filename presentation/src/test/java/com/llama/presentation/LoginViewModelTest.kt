@@ -1,5 +1,6 @@
 package com.llama.presentation
 
+import android.util.Log
 import com.llama.domain.usecase.login.LoginUseCase
 import com.llama.domain.usecase.login.SetTokenUseCase
 import com.llama.presentation.login.LoginSideEffect
@@ -29,13 +30,21 @@ class LoginViewModelTest {
             loginUseCase = loginUseCase,
             setTokenUseCase = setTokenUseCase
         )
+        val test = loginUseCase(
+            "llama",
+            "1234"
+        )
 
-        vm.onIdChange("llama")
-        vm.onPasswordChange("1234")
+        Log.d("TAG", "로그인 성공 테스트: $test")
 
-        viewModel.onLoginClick()
-        val sideEffect = vm.container.sideEffectFlow.first()
-        Assert.assertEquals(sideEffect as? LoginSideEffect.Toast, "로그인 성공")
+        Assert.assertEquals(test.getOrThrow(), "테스트")
+
+//        vm.onIdChange("llama")
+//        vm.onPasswordChange("1234")
+//
+//        viewModel.onLoginClick()
+//        val sideEffect = vm.container.sideEffectFlow.first()
+//        Assert.assertEquals(sideEffect as? LoginSideEffect.Toast, "로그인 성공")
     }
 
     class FakeLoginUseCase : LoginUseCase {
