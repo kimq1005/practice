@@ -1,15 +1,21 @@
 package com.llama.presentation
 
-import android.util.Log
 import com.llama.domain.usecase.login.LoginUseCase
 import com.llama.domain.usecase.login.SetTokenUseCase
 import com.llama.presentation.login.LoginSideEffect
 import com.llama.presentation.login.LoginViewModel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+
+private val testId = "llama"
+private val testPassword = "1234"
+
+private val success = "success"
+private val error = "error"
 
 class LoginViewModelTest {
     private lateinit var loginUseCase: FakeLoginUseCase
@@ -18,33 +24,39 @@ class LoginViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = LoginViewModel(
-            loginUseCase = loginUseCase,
-            setTokenUseCase = setTokenUseCase
-        )
+        loginUseCase = FakeLoginUseCase()
+        setTokenUseCase = FakeSetTokenUseCase()
+
+//        viewModel = LoginViewModel(
+//            loginUseCase = loginUseCase,
+//            setTokenUseCase = setTokenUseCase
+//        )
     }
 
     @Test
     fun `로그인 성공 테스트`() = runTest {
-        val vm = LoginViewModel(
-            loginUseCase = loginUseCase,
-            setTokenUseCase = setTokenUseCase
-        )
         val test = loginUseCase(
             "llama",
             "1234"
         )
 
-        Log.d("TAG", "로그인 성공 테스트: $test")
+        Assert.assertEquals(test.getOrThrow(), success)
+    }
 
-        Assert.assertEquals(test.getOrThrow(), "테스트")
+    @Test
+    fun `로그인 버튼 클릭 테스트`() = runTest {
+        val viewModel = LoginViewModel(
+            loginUseCase = loginUseCase,
+            setTokenUseCase = setTokenUseCase
+        )
 
-//        vm.onIdChange("llama")
-//        vm.onPasswordChange("1234")
-//
-//        viewModel.onLoginClick()
-//        val sideEffect = vm.container.sideEffectFlow.first()
-//        Assert.assertEquals(sideEffect as? LoginSideEffect.Toast, "로그인 성공")
+        viewModel.onIdChange(testId)
+        viewModel.onPasswordChange(testPassword)
+
+        viewModel.onLoginClick()
+
+        val sideEffect = viewModel.container.sideEffectFlow.first()
+        Assert.assertTrue(sideEffect is LoginSideEffect.NavigateToMainActivity)
     }
 
     class FakeLoginUseCase : LoginUseCase {
@@ -52,7 +64,18 @@ class LoginViewModelTest {
             id: String,
             password: String,
         ): Result<String> = runCatching {
-            "테스트"
+           if (id == testId && password == testPassword)
+               success
+           else
+               error
+        }
+    }
+
+    class FakeSetTokenUseCase : SetTokenUseCase {
+        private var savedToken = ""
+
+        override suspend fun invoke(token: String) {
+            savedToken = token
         }
     }
 }
