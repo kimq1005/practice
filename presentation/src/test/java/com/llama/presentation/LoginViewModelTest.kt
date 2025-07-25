@@ -5,7 +5,6 @@ import com.llama.domain.usecase.login.SetTokenUseCase
 import com.llama.presentation.login.LoginSideEffect
 import com.llama.presentation.login.LoginViewModel
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -64,7 +63,7 @@ class LoginViewModelTest {
             id: String,
             password: String,
         ): Result<String> = runCatching {
-           if (id == testId && password == testPassword)
+            if (id == testId && password == testPassword)
                success
            else
                error
