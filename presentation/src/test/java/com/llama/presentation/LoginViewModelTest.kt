@@ -19,17 +19,11 @@ private val error = "error"
 class LoginViewModelTest {
     private lateinit var loginUseCase: FakeLoginUseCase
     private lateinit var setTokenUseCase: FakeSetTokenUseCase
-//    private lateinit var viewModel: LoginViewModel
 
     @Before
     fun setUp() {
         loginUseCase = FakeLoginUseCase()
         setTokenUseCase = FakeSetTokenUseCase()
-
-//        viewModel = LoginViewModel(
-//            loginUseCase = loginUseCase,
-//            setTokenUseCase = setTokenUseCase
-//        )
     }
 
     @Test
@@ -56,7 +50,7 @@ class LoginViewModelTest {
 
         val sideEffect = viewModel.container.sideEffectFlow.first()
 
-        Assert.assertEquals((sideEffect as LoginSideEffect.Toast).message , "로그인 성공")
+        Assert.assertEquals((sideEffect as LoginSideEffect.Toast).message, "로그인 성공")
     }
 
     class FakeLoginUseCase : LoginUseCase {
@@ -65,9 +59,9 @@ class LoginViewModelTest {
             password: String,
         ): Result<String> = runCatching {
             if (id == testId && password == testPassword)
-               success
-           else
-               error
+                success
+            else
+                error
         }
     }
 
@@ -77,5 +71,7 @@ class LoginViewModelTest {
         override suspend fun invoke(token: String) {
             savedToken = token
         }
+
+        fun getToken(): String = savedToken
     }
 }
