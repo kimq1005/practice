@@ -12,7 +12,7 @@ class SetMyUserUseCaseImpl @Inject constructor(
 ) : SetMyUserUseCase {
     override suspend fun invoke(
         username: String?,
-        profileImageUrl: String?
+        profileImageUrl: String?,
     ): Result<Unit> = runCatching {
         val user = getMyUserUseCase().getOrThrow()
 

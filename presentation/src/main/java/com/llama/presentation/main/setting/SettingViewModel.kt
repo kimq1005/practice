@@ -38,7 +38,7 @@ class SettingViewModel @Inject constructor(
         load()
     }
 
-    private fun load() = intent {
+    fun load() = intent {
         val user = getMyUserUseCase().getOrThrow()
         reduce {
             state.copy(
