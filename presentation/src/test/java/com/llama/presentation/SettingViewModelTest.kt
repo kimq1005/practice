@@ -1,5 +1,6 @@
 package com.llama.presentation
 
+import androidx.core.net.toUri
 import com.llama.domain.model.User
 import com.llama.domain.usecase.login.ClearTokenUseCase
 import com.llama.domain.usecase.main.setting.GetMyUserUseCase
@@ -7,9 +8,7 @@ import com.llama.domain.usecase.main.setting.SetMyUserUseCase
 import com.llama.domain.usecase.main.setting.SetProfileImageUseCase
 import com.llama.presentation.main.setting.SettingSideEffect
 import com.llama.presentation.main.setting.SettingViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -19,7 +18,7 @@ private var testId = 1L
 private var testUsername = "kim"
 private var testLoginId = "q1005"
 private var testChangeUsername = "changeMe"
-private var isChange = false
+private var testImageUrl = "https://placehold.co/600x400"
 
 class SettingViewModelTest {
     private lateinit var viewModel: SettingViewModel
@@ -27,7 +26,6 @@ class SettingViewModelTest {
     private lateinit var getMyUserUseCase: FakeGetMyUserUseCase
     private lateinit var setMyUserUseCase: FakeSetMyUserUseCase
     private lateinit var setProfileImageUseCase: FakeSetProfileImageUseCase
-    private lateinit var getMyUserChangeUseCase: FakeGetMyUserChangeUseCase
 
     @Before
     fun setUp() {
@@ -35,7 +33,6 @@ class SettingViewModelTest {
         getMyUserUseCase = FakeGetMyUserUseCase()
         setMyUserUseCase = FakeSetMyUserUseCase()
         setProfileImageUseCase = FakeSetProfileImageUseCase()
-        getMyUserChangeUseCase = FakeGetMyUserChangeUseCase()
 
         viewModel = SettingViewModel(
             clearTokenUseCase,
@@ -47,9 +44,16 @@ class SettingViewModelTest {
 
     @Test
     fun `유저 정보 가져오기 테스트`() = runTest {
-        isChange = false
-        viewModel.load()
-        val state = viewModel.container.stateFlow.first()
+        val vm = SettingViewModel(
+            clearTokenUseCase,
+            FakeGetMyUserUseCase(testUsername),
+            setMyUserUseCase,
+            setProfileImageUseCase
+        )
+
+        vm.load()
+
+        val state = vm.container.stateFlow.first()
         Assert.assertEquals(state.username, testUsername)
     }
 
@@ -64,42 +68,49 @@ class SettingViewModelTest {
     fun `유저 이름 변경 테스트` () = runTest {
         val vm = SettingViewModel(
             clearTokenUseCase,
-            getMyUserChangeUseCase,
+            FakeGetMyUserUseCase(testChangeUsername),
             setMyUserUseCase,
             setProfileImageUseCase
         )
 
-        isChange = true
-        viewModel.onUsernameChange(testChangeUsername)
+        vm.onUsernameChange(testChangeUsername)
 
-        val state = viewModel.container.stateFlow.value
+        val state = vm.container.stateFlow.first()
         Assert.assertEquals(state.username, testChangeUsername)
     }
 
+    @Test
+    fun `프로필 이미지 변경 테스트`() = runTest {
+        val vm = SettingViewModel(
+            clearTokenUseCase,
+            FakeGetMyUserUseCase(
+                username = testUsername,
+                profileImageUrl = testImageUrl
+            ),
+            setMyUserUseCase,
+            setProfileImageUseCase
+        )
+
+        vm.onImageChange(testImageUrl.toUri())
+
+        val state = vm.container.stateFlow.value
+        Assert.assertEquals(state.profileImageUrl, testImageUrl)
+    }
+
     class FakeClearTokenUseCase : ClearTokenUseCase {
-        override suspend fun invoke(): Result<Unit> = runCatching {
-
-        }
+        override suspend fun invoke(): Result<Unit> = runCatching { }
     }
 
-    class FakeGetMyUserUseCase : GetMyUserUseCase {
+    class FakeGetMyUserUseCase(
+        private val username: String = "",
+        private val profileImageUrl: String = ""
+    ) : GetMyUserUseCase {
         override suspend fun invoke(): Result<User> = runCatching {
             User(
                 id = testId,
                 loginId = testLoginId,
-                username = if (!isChange) testUsername else testChangeUsername,
-                profileImageUrl = ""
-            )
-        }
-    }
-
-    class FakeGetMyUserChangeUseCase : GetMyUserUseCase {
-        override suspend fun invoke(): Result<User> = runCatching {
-            User(
-                id = testId,
-                loginId = testLoginId,
-                username = testChangeUsername,
-                profileImageUrl = ""
+                username = username,
+                profileImageUrl = profileImageUrl
             )
         }
     }
@@ -110,15 +121,18 @@ class SettingViewModelTest {
             profileImageUrl: String?,
         ): Result<Unit> = runCatching {
 
-            Unit
         }
     }
 
     class FakeSetProfileImageUseCase: SetProfileImageUseCase {
+        private var savedContentUri = ""
+
         override suspend fun invoke(
             contentUri: String
         ): Result<Unit> = runCatching {
-            Unit
+            savedContentUri = contentUri
         }
+
+        fun getContentUri(): String = savedContentUri
     }
 }
