@@ -132,7 +132,5 @@ class SettingViewModelTest {
         ): Result<Unit> = runCatching {
             savedContentUri = contentUri
         }
-
-        fun getContentUri(): String = savedContentUri
     }
 }
