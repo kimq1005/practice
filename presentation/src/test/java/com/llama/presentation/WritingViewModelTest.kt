@@ -83,8 +83,6 @@ class WritingViewModelTest {
             title: String,
             content: String,
             images: List<Image>
-        ) {
-
-        }
+        ) { }
     }
 }
