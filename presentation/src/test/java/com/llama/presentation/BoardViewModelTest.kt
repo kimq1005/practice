@@ -8,6 +8,7 @@ import com.llama.presentation.main.board.BoardViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import org.junit.Before
+import org.junit.Test
 
 class BoardViewModelTest {
     private lateinit var viewModel: BoardViewModel
