@@ -50,7 +50,9 @@ class CounterModel {
     }
 }
 
-class CounterController(private val model: CounterModel) {
+class CounterController(
+    private val model: CounterModel
+) {
     private val _count = mutableIntStateOf(model.getCount())
     val count = _count
 
