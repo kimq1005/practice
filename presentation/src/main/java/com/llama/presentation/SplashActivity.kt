@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.llama.domain.usecase.login.GetTokenUseCase
 import com.llama.presentation.main.MainActivity
 import com.llama.presentation.login.LoginActivity
+import com.llama.presentation.test.MvvmScreen
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,38 +28,29 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "로딩중 입니다.",
-                    color = Color.White
-                )
-            }
+           MvvmScreen()
         }
 
-        lifecycleScope.launch {
-            val isLoggedIn = !getTokenUseCase().isNullOrEmpty()
-
-            getTokenUseCase()?.let {
-                Log.d("TAG", "onCreate: myToken = ${getTokenUseCase()}")
-            }
-
-            if (isLoggedIn) {
-                startActivity(
-                    Intent(this@SplashActivity, MainActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
-                )
-            } else {
-                startActivity(
-                    Intent(this@SplashActivity, LoginActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    }
-                )
-            }
-        }
+//        lifecycleScope.launch {
+//            val isLoggedIn = !getTokenUseCase().isNullOrEmpty()
+//
+//            getTokenUseCase()?.let {
+//                Log.d("TAG", "onCreate: myToken = ${getTokenUseCase()}")
+//            }
+//
+//            if (isLoggedIn) {
+//                startActivity(
+//                    Intent(this@SplashActivity, MainActivity::class.java).apply {
+//                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                    }
+//                )
+//            } else {
+//                startActivity(
+//                    Intent(this@SplashActivity, LoginActivity::class.java).apply {
+//                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                    }
+//                )
+//            }
+//        }
     }
 }
